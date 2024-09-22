@@ -55,9 +55,16 @@ public class ArregloDeListasSwing extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nombre = nombreTextField.getText();
                 if (!nombre.isEmpty()) {
-                    insertarEnArreglo(arreglo, nombre);
-                    nombreTextField.setText(""); // Limpiar el campo de texto
-                    mostrarArregloDeListas(arreglo); // Actualizar la visualización
+                    // Verificar si el nombre ya existe
+                    if (!existeNombre(arreglo, nombre)) {
+                        insertarEnArreglo(arreglo, nombre);
+                        nombreTextField.setText(""); // Limpiar el campo de texto
+                        mostrarArregloDeListas(arreglo); // Actualizar la visualización
+                    } else {
+                        // Mostrar un pop-up indicando que el nombre ya existe
+                        JOptionPane.showMessageDialog(null, "El nombre '" + nombre + "' ya existe en la lista.",
+                                "Nombre duplicado", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
         });
@@ -76,6 +83,12 @@ public class ArregloDeListasSwing extends JFrame {
         return Character.toLowerCase(letra) - 'a';
     }
 
+    // Función para verificar si el nombre ya existe en la lista correspondiente
+    public boolean existeNombre(ListaEnlazada[] arreglo, String nombre) {
+        int indice = obtenerIndicePorLetra(nombre.charAt(0));
+        return arreglo[indice].contiene(nombre);
+    }
+    
     // Insertar un nombre de usuario en la lista correspondiente
     public void insertarEnArreglo(ListaEnlazada[] arreglo, String nombre) {
         int indice = obtenerIndicePorLetra(nombre.charAt(0));
