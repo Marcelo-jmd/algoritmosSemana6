@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class ArregloDeListasSwing extends JFrame {
     private JTextField nombreTextField;
     private JButton agregarButton;
+    private JButton limpiarButton; // Nuevo botón "Limpiar"
     private JTextArea mostrarTextArea;
     private JScrollPane scrollPane;
     private ListaEnlazada[] arreglo;
@@ -33,9 +34,12 @@ public class ArregloDeListasSwing extends JFrame {
         add(nombreTextField);
 
         agregarButton = new JButton("Agregar");
-        agregarButton.setBounds(100, 50, 200, 25);
+        agregarButton.setBounds(100, 50, 90, 25);
         add(agregarButton);
 
+        limpiarButton = new JButton("Limpiar");
+        limpiarButton.setBounds(210, 50, 90, 25);
+        add(limpiarButton);
         // Crear JTextArea y agregarlo dentro de un JScrollPane
         mostrarTextArea = new JTextArea();
         mostrarTextArea.setEditable(false); // Hacer que el JTextArea sea de solo lectura
@@ -55,6 +59,14 @@ public class ArregloDeListasSwing extends JFrame {
                     nombreTextField.setText(""); // Limpiar el campo de texto
                     mostrarArregloDeListas(arreglo); // Actualizar la visualización
                 }
+            }
+        });
+        
+        // Acción al presionar el botón "Limpiar"
+        limpiarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nombreTextField.setText(""); // Limpiar el campo de texto
             }
         });
     }
